@@ -1,4 +1,6 @@
 require 'native'
+require 'js'
+
 require 'active_support/core_ext/string'
 
 module Wrappable
@@ -7,37 +9,34 @@ module Wrappable
       include Native
 
       # NOTE: identifies methods that start with underscore as private methods
-      js_properties = (Array(`Object.getOwnPropertyNames(window[#{klass}].prototype)`) - ['constructor']).reject { |method| method.start_with? '_' }
+      js_properties = (JSHelpers.object_properties(JSHelpers.window(klass).JS[:prototype]) - %w(constructor)).reject { |method| method.start_with? '_' }
+
       js_properties.each do |js_method|
         alias_native(js_method.underscore, js_method)
       end
 
       # TODO: this is duplicating method creation, extract-refactor
-      attributes = `Object.getOwnPropertyNames(#{Helper.constructor(klass, [])})`
+      attributes = JSHelpers.object_properties(JSHelpers.constructor klass)
 
       native_accessor *attributes
 
       def initialize(*args)
-        super Helper.constructor(self.class, args)
+        super JSHelpers.constructor(self.class, args)
       end
     }
   end
 
-  module Helper
-    def self.constructor(klass, args)
-      #NOTE some javascript dark magic for applying attributes on new,
-      #see: http://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible
-      %x{
-        function construct(constructor, argums) {
-            function F() {
-              return window[constructor].apply(this, argums);
-            }
-            F.prototype = window[constructor].prototype;
-            return new F();
-        }
-      }
+  module JSHelpers
+    def self.constructor(property, args = [])
+      JS.new(window(property), args)
+    end
 
-      `construct(#{klass}, args)`
+    def self.object_properties(object)
+      Array(`Object`.JS.getOwnPropertyNames(object))
+    end
+
+    def self.window(property)
+      `window`.JS[property]
     end
   end
 end
