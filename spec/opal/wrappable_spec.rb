@@ -38,16 +38,18 @@ describe Wrappable do
       end
     }
 
-    let!(:car_methods) { Car.new(1998, 13).methods - native_methods }
+    let!(:car) { Car.new(1998, 13) }
 
-    it 'creates the setters' do
-      expect(car_methods.select { |method| method.end_with? '=' })
-        .to match_array %w(year= price=)
+    it 'creaters a getter and a setter for year' do
+      expect(car.year).to eq 1998
+      car.year = 2015
+      expect(car.year).to eq 2015
     end
 
-    it 'creates the getters' do
-      expect(car_methods.reject { |method| method.end_with? '=' })
-        .to match_array %w(year price)
+    it 'creates a getter and a setter for price' do
+      expect(car.price).to eq 13
+      car.price = 14
+      expect(car.price).to eq 14
     end
   end
 

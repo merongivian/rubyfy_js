@@ -5,7 +5,7 @@ module Wrappable
     end
 
     def construct(args = [])
-      JS.new(obtain, args)
+      JS.new(obtain, *args)
     end
 
     def properties(type)

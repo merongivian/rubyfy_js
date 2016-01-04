@@ -7,10 +7,10 @@ require_relative 'wrappable/js_object'
 
 module Wrappable
   def self.included(klass)
+    js_object = JSObject.new(klass)
+
     klass.class_eval {
       include Native
-
-      js_object = JSObject.new(klass)
 
       js_object.properties(:methods).each do |js_method|
         alias_native(js_method.underscore, js_method)
