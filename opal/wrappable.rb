@@ -16,7 +16,12 @@ module Wrappable
         alias_native(js_method.underscore, js_method)
       end
 
-      native_accessor *(js_object.properties :attributes)
+      js_object.properties(:attributes).each do |js_attribute|
+        define_method "#{js_attribute.underscore}=" do |value|
+          Native(`#@native[js_attribute] = value`)
+        end
+        alias_native(js_attribute.underscore, js_attribute)
+      end
 
       def initialize(*args)
         super JSObject.new(self.class).construct(args)

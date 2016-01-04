@@ -40,16 +40,16 @@ describe Wrappable do
 
     let!(:car) { Car.new(1998, 13) }
 
-    it 'creaters a getter and a setter for year' do
-      expect(car.year).to eq 1998
-      car.year = 2015
-      expect(car.year).to eq 2015
+    it 'creaters a getter and a setter for sale_year' do
+      expect(car.sale_year).to eq 1998
+      car.sale_year = 2015
+      expect(car.sale_year).to eq 2015
     end
 
-    it 'creates a getter and a setter for price' do
-      expect(car.price).to eq 13
-      car.price = 14
-      expect(car.price).to eq 14
+    it 'creates a getter and a setter for sale_price' do
+      expect(car.sale_price).to eq 13
+      car.sale_price = 14
+      expect(car.sale_price).to eq 14
     end
   end
 
