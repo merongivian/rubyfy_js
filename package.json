@@ -1,0 +1,28 @@
+{
+  "name": "opal-audio",
+  "version": "0.0.1",
+  "description": "create your own wrapper with ruby",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start karma.conf.js --browsers Firefox --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merongivian/opal-wrappable.git"
+  },
+  "keywords": [
+    "wrappable opal"
+  ],
+  "author": "Jose Anasco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/merongivian/opal-wrappable/issues"
+  },
+  "homepage": "https://github.com/merongivian/opal-wrappable#readme",
+  "devDependencies": {
+    "karma": "^0.13.19",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-spec-json-reporter": "0.0.8",
+    "karma-opal-rspec": "wied03/karma-opal-rspec#enhancement/16"
+  }
+}
