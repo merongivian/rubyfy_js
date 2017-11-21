@@ -70,16 +70,16 @@ describe Wrappable do
       class Jungle
         include Wrappable
 
-        attr_wrap :littlePuma, Puma
-        attr_wrap :bigLion, Lion
-        attr_wrap :littleZebra, Zebra
+        alias_native :little_puma, :littlePuma, as: Puma
+        alias_native :big_lion, :bigLion, as: Lion
+        alias_native :little_zebra, :littleZebra, as: Zebra
       end
     }
 
-    xit 'wraps object attributes' do
-      expect(Jungle.new.bigLion).to be_a Lion
-      #expect(Jungle.new.little_puma).to be_a Puma
-      #expect(Jungle.new.little_zebra).to be_a Zebra
+    it 'wraps object attributes' do
+      expect(Jungle.new.big_lion).to be_a Lion
+      expect(Jungle.new.little_puma).to be_a Puma
+      expect(Jungle.new.little_zebra).to be_a Zebra
     end
   end
 end
