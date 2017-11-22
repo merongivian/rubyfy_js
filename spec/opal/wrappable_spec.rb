@@ -5,7 +5,7 @@ require 'opal/fixtures/accessors/simple_types'
 require 'opal/fixtures/accessors/object_types'
 
 describe Wrappable do
-  let(:native_methods) { Object.methods + %w[to_n wrappable_accessor] }
+  let(:native_methods) { Object.methods + %w[to_n] }
 
   describe 'instance methods' do
     before {
@@ -56,23 +56,21 @@ describe Wrappable do
   describe 'accesors for object types' do
     before {
       class Lion
-        include Native
+        include Wrappable
       end
 
       class Puma
-        include Native
+        include Wrappable
       end
 
       class Zebra
-        include Native
+        include Wrappable
       end
 
       class Jungle
         include Wrappable
 
-        alias_native :little_puma, :littlePuma, as: Puma
-        alias_native :big_lion, :bigLion, as: Lion
-        alias_native :little_zebra, :littleZebra, as: Zebra
+        wrapped_classes Lion, Puma, Zebra
       end
     }
 
