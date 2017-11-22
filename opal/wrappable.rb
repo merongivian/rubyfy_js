@@ -6,9 +6,8 @@ require_relative 'wrappable/js_object'
 
 module Wrappable
   def self.included(klass)
-    klass.extend Helpers
-
     js_object = JSObject.new(klass)
+    js_window_objects = Native(`Object.getOwnPropertyNames(window)`)
 
     klass.class_eval {
       include Native
@@ -22,16 +21,18 @@ module Wrappable
           Native(`#@native[js_attribute] = value`)
         end
 
-        alias_native(js_attribute.underscore, js_attribute)
-
         define_method js_attribute.underscore do
           attribute_value = Native(`#@native[js_attribute]`)
-          wrapped_class = @@wrapped_classes.find do |wrapped_klass|
-            `#@native[js_attribute].constructor == eval(#{wrapped_klass.to_s})`
+          wrapped_class = js_window_objects.find do |js_window_object|
+            `#@native[js_attribute].constructor == window[js_window_object]`
           end
 
-          if wrapped_class
-            wrapped_class.new(attribute_value.to_n)
+          is_wrapped_class = Kernel.const_defined?(wrapped_class) &&
+                             Object.const_get(wrapped_class).is_a?(Class) &&
+                             Object.const_get(wrapped_class).ancestors.include?(Wrappable)
+
+          if wrapped_class && is_wrapped_class
+            Object.const_get(wrapped_class).new(attribute_value.to_n)
           else
             attribute_value
           end
@@ -46,13 +47,5 @@ module Wrappable
         end
       end
     }
-  end
-
-  module Helpers
-    @@wrapped_classes = []
-
-    def wrapped_classes(*klasses)
-      @@wrapped_classes = klasses
-    end
   end
 end

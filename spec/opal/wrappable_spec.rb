@@ -69,8 +69,6 @@ describe Wrappable do
 
       class Jungle
         include Wrappable
-
-        wrapped_classes Lion, Puma, Zebra
       end
     }
 
@@ -78,6 +76,9 @@ describe Wrappable do
       expect(Jungle.new.big_lion).to be_a Lion
       expect(Jungle.new.little_puma).to be_a Puma
       expect(Jungle.new.little_zebra).to be_a Zebra
+
+      expect(Jungle.new.big_lion.age).to eq 7
+      expect(Jungle.new.big_lion.say_roar).to eq 'Roar!!!, im the king of the jungle'
     end
   end
 end
