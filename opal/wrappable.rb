@@ -27,12 +27,20 @@ module Wrappable
             `#@native[js_attribute].constructor == window[js_window_object]`
           end
 
-          is_wrapped_class = Kernel.const_defined?(wrapped_class_string) &&
-                             Object.const_get(wrapped_class_string).is_a?(Class) &&
-                             Object.const_get(wrapped_class_string).ancestors.include?(Native)
+          get_class = lambda do |possible_class|
+            begin
+              possible_class_constant = Object.const_get(possible_class)
+              possible_class_constant if possible_class_constant.is_a?(Class)
+            rescue NameError
+              nil
+            end
+          end
 
-          if wrapped_c && is_wrapped_class
-            Object.const_get(wrapped_class_string).new(attribute_value.to_n)
+          if wrapped_class_string and
+             wrapped_class = get_class.(wrapped_class_string) and
+             wrapped_class.ancestors.include?(Native)
+
+            wrapped_class.new(attribute_value.to_n)
           else
             attribute_value
           end
