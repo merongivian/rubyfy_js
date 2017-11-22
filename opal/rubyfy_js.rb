@@ -2,9 +2,9 @@ require 'native'
 require 'js'
 require 'active_support/core_ext/string'
 
-require_relative 'wrappable/js_object'
+require_relative 'rubyfy_js/js_object'
 
-module Wrappable
+module RubyfyJS
   def self.included(klass)
     js_object = JSObject.new(klass)
     js_window_objects = Native(`Object.getOwnPropertyNames(window)`)

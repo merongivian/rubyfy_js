@@ -1,4 +1,4 @@
-module Wrappable
+module RubyfyJS
   class JSObject
     def initialize(name)
       @name = name

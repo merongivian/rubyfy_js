@@ -1,16 +1,16 @@
-require 'wrappable'
-require 'opal/fixtures/methods'
+require 'rubyfy_js'
+require 'fixtures/methods'
 
-require 'opal/fixtures/accessors/simple_types'
-require 'opal/fixtures/accessors/object_types'
+require 'fixtures/accessors/simple_types'
+require 'fixtures/accessors/object_types'
 
-describe Wrappable do
+describe RubyfyJS do
   let(:native_methods) { Object.methods + %w[to_n] }
 
   describe 'instance methods' do
     before {
       class Person
-        include Wrappable
+        include RubyfyJS
       end
     }
 
@@ -34,7 +34,7 @@ describe Wrappable do
   describe 'accessors for simple types' do
     before {
       class Car
-        include Wrappable
+        include RubyfyJS
       end
     }
 
@@ -56,11 +56,11 @@ describe Wrappable do
   describe 'accesors for object types' do
     before {
       class Lion
-        include Wrappable
+        include RubyfyJS
       end
 
       class Puma
-        include Wrappable
+        include RubyfyJS
       end
 
       class Zebra
@@ -68,7 +68,7 @@ describe Wrappable do
       end
 
       class Jungle
-        include Wrappable
+        include RubyfyJS
       end
     }
 

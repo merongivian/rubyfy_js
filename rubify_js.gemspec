@@ -1,16 +1,16 @@
 # coding: utf-8
-$LOAD_PATH << File.expand_path('../opal', __FILE__)
-require 'wrappable/version'
+$LOAD_PATH << File.expand_path('../lib', __FILE__)
+require 'version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "opal-wrappable"
-  spec.version       = Opal::Wrappable::VERSION
+  spec.name          = "rubyfy_js"
+  spec.version       = RubyfyJS::VERSION
   spec.authors       = ["Jose Añasco"]
   spec.email         = ["joseanasco1@gmail.com"]
 
-  spec.summary       = %q{Generates opal classes from javascript}
+  spec.summary       = %q{Creates Ruby classes from Javascript Code}
   spec.description   = %q{Opinionated way for wrapping js code with Ruby}
-  spec.homepage      = "http://github.com/merongivian/opal-wrappable"
+  spec.homepage      = "http://github.com/merongivian/rubyfy_js"
 
   spec.files          = `git ls-files`.split("\n")
   spec.executables    = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
