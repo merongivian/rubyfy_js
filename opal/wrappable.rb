@@ -23,16 +23,16 @@ module Wrappable
 
         define_method js_attribute.underscore do
           attribute_value = Native(`#@native[js_attribute]`)
-          wrapped_class = js_window_objects.find do |js_window_object|
+          wrapped_class_string = js_window_objects.find do |js_window_object|
             `#@native[js_attribute].constructor == window[js_window_object]`
           end
 
-          is_wrapped_class = Kernel.const_defined?(wrapped_class) &&
-                             Object.const_get(wrapped_class).is_a?(Class) &&
-                             Object.const_get(wrapped_class).ancestors.include?(Native)
+          is_wrapped_class = Kernel.const_defined?(wrapped_class_string) &&
+                             Object.const_get(wrapped_class_string).is_a?(Class) &&
+                             Object.const_get(wrapped_class_string).ancestors.include?(Native)
 
-          if wrapped_class && is_wrapped_class
-            Object.const_get(wrapped_class).new(attribute_value.to_n)
+          if wrapped_c && is_wrapped_class
+            Object.const_get(wrapped_class_string).new(attribute_value.to_n)
           else
             attribute_value
           end
