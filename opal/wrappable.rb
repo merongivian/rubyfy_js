@@ -29,7 +29,7 @@ module Wrappable
 
           is_wrapped_class = Kernel.const_defined?(wrapped_class) &&
                              Object.const_get(wrapped_class).is_a?(Class) &&
-                             Object.const_get(wrapped_class).ancestors.include?(Wrappable)
+                             Object.const_get(wrapped_class).ancestors.include?(Native)
 
           if wrapped_class && is_wrapped_class
             Object.const_get(wrapped_class).new(attribute_value.to_n)

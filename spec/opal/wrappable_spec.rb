@@ -64,7 +64,7 @@ describe Wrappable do
       end
 
       class Zebra
-        include Wrappable
+        include Native
       end
 
       class Jungle
