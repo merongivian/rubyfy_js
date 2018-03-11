@@ -1,6 +1,6 @@
 # coding: utf-8
-$LOAD_PATH << File.expand_path('../lib', __FILE__)
-require 'version'
+$LOAD_PATH << File.expand_path('../opal', __FILE__)
+require 'rubyfy_js/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rubyfy_js"
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files     = `git ls-files -- {test,spec,features}/*`.split("\n")
   spec.require_paths  = ['lib']
 
-  spec.add_runtime_dependency 'opal', '~> 0.10.2'
+  spec.add_runtime_dependency 'opal', '~> 0.11.0'
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
 end

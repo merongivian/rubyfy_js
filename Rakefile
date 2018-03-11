@@ -1,4 +1,4 @@
-# Rakefile
+require 'opal-sprockets'
 require 'opal/rspec/rake_task'
 require 'opal-activesupport'
 
